@@ -33,7 +33,10 @@ class WordPressCoreInstaller extends LibraryInstaller {
 		if ( ! $installationDir ) {
 			$installationDir = 'wordpress';
 		}
-		if ( ! empty( self::$_installedPaths[$installationDir] ) ) {
+		if (
+			! empty( self::$_installedPaths[$installationDir] ) &&
+			$prettyName !== self::$_installedPaths[$installationDir]
+		) {
 			throw new \InvalidArgumentException( 'Two packages cannot share the same directory!' );
 		}
 		self::$_installedPaths[$installationDir] = $prettyName;
