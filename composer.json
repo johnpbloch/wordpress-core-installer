@@ -9,5 +9,16 @@
 			"name" : "John P. Bloch",
 			"email": "me@johnpbloch.com"
 		}
-	]
+	],
+	"autoload"         : {
+		"psr-0": {
+			"johnpbloch\\Composer\\": "src/"
+		}
+	},
+	"extra"            : {
+		"class": "johnpbloch\\Composer\\WordPressCoreInstaller"
+	},
+	"require-dev": {
+		"composer/composer": "1.0.*@dev"
+	}
 }
