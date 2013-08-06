@@ -1,0 +1,13 @@
+{
+	"name"             : "johnpbloch/wordpress-core-installer",
+	"description"      : "A custom installer to handle deploying WordPress with composer",
+	"type"             : "composer-installer",
+	"license"          : "GPL-2.0+",
+	"minimum-stability": "dev",
+	"authors"          : [
+		{
+			"name" : "John P. Bloch",
+			"email": "me@johnpbloch.com"
+		}
+	]
+}
