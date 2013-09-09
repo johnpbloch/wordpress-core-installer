@@ -1,7 +1,7 @@
 {
 	"name"             : "johnpbloch/wordpress-core-installer",
 	"description"      : "A custom installer to handle deploying WordPress with composer",
-	"type"             : "composer-installer",
+	"type"             : "composer-plugin",
 	"license"          : "GPL-2.0+",
 	"minimum-stability": "dev",
 	"authors"          : [
@@ -16,9 +16,12 @@
 		}
 	},
 	"extra"            : {
-		"class": "johnpbloch\\Composer\\WordPressCoreInstaller"
+		"class": "johnpbloch\\Composer\\WordPressCorePlugin"
 	},
-	"require-dev": {
+	"require"          : {
+		"composer-plugin-api": "1.0.0"
+	},
+	"require-dev"      : {
 		"composer/composer": "1.0.*@dev"
 	},
 	"conflict"         : {
