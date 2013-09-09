@@ -20,5 +20,8 @@
 	},
 	"require-dev": {
 		"composer/composer": "1.0.*@dev"
+	},
+	"conflict"         : {
+		"composer/installers": "<1.0.6"
 	}
 }
