@@ -21,6 +21,13 @@ class WordPressCoreInstaller extends LibraryInstaller {
 			$topExtra = $this->composer->getPackage()->getExtra();
 			if ( ! empty( $topExtra['wordpress-install-dir'] ) ) {
 				$installationDir = $topExtra['wordpress-install-dir'];
+				if ( '.' === $installationDir ) {
+					throw new \InvalidArgumentException(
+						'WordPress can\'t be installed in the root directory! Composer doesn\'t ' .
+						'support nested packages, and would delete the entire project if WordPress'.
+						'was updated and replace it with a fresh updated copy. Use a sub-directory'.
+						'install instead, or an alternative installation method' );
+				}
 				if ( is_array( $installationDir ) ) {
 					$installationDir = empty( $installationDir[$prettyName] ) ? false : $installationDir[$prettyName];
 				}
