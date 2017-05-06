@@ -25,7 +25,7 @@ The root composer package can also declare custom paths as an object keyed by pa
 "extra": {
 	"wordpress-install-dir": {
 		"wordpress/wordpress": "wordpress",
-		"johnpbloch/wordpress": "jpb-wordpress"
+		"johnpbloch/wordpress-core": "jpb-wordpress"
 	}
 }
 ```
