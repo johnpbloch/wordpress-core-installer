@@ -52,6 +52,33 @@ class WordPressCoreInstallerTest extends TestCase {
 		);
 	}
 
+	public function testArrayOfInstallDirs() {
+		$composer    = $this->createComposer();
+		$rootPackage = new RootPackage( 'test/root-package', '1.0.1.0', '1.0.1' );
+		$composer->setPackage( $rootPackage );
+		$rootPackage->setExtra( array(
+			'wordpress-install-dir' => array(
+				'test/package-one' => 'install-dir/one',
+				'test/package-two' => 'install-dir/two',
+			),
+		) );
+		$installer = new WordPressCoreInstaller( new NullIO(), $composer );
+
+		$this->assertEquals(
+			'install-dir/one',
+			$installer->getInstallPath(
+				new Package( 'test/package-one', '1.0.0.0', '1.0.0' )
+			)
+		);
+
+		$this->assertEquals(
+			'install-dir/two',
+			$installer->getInstallPath(
+				new Package( 'test/package-two', '1.0.0.0', '1.0.0' )
+			)
+		);
+	}
+
 	private function resetInstallPaths() {
 		$prop = new \ReflectionProperty( '\johnpbloch\Composer\WordPressCoreInstaller', '_installedPaths' );
 		$prop->setAccessible( true );
