@@ -20,18 +20,14 @@ class WordPressCoreInstallerTest extends TestCase {
 	}
 
 	public function testSupports() {
-		$composer = new Composer();
-		$composer->setConfig( new Config() );
-		$installer = new WordPressCoreInstaller( new NullIO(), $composer );
+		$installer = new WordPressCoreInstaller( new NullIO(), $this->createComposer() );
 
 		$this->assertTrue( $installer->supports( 'wordpress-core' ) );
 		$this->assertFalse( $installer->supports( 'not-wordpress-core' ) );
 	}
 
 	public function testDefaultInstallDir() {
-		$composer = new Composer();
-		$composer->setConfig( new Config() );
-		$installer = new WordPressCoreInstaller( new NullIO(), $composer );
+		$installer = new WordPressCoreInstaller( new NullIO(), $this->createComposer() );
 		$package   = new Package( 'johnpbloch/test-package', '1.0.0.0', '1.0.0' );
 
 		$this->assertEquals( 'wordpress', $installer->getInstallPath( $package ) );
@@ -41,6 +37,16 @@ class WordPressCoreInstallerTest extends TestCase {
 		$prop = new \ReflectionProperty( '\johnpbloch\Composer\WordPressCoreInstaller', '_installedPaths' );
 		$prop->setAccessible( true );
 		$prop->setValue( array() );
+	}
+
+	/**
+	 * @return Composer
+	 */
+	private function createComposer() {
+		$composer = new Composer();
+		$composer->setConfig( new Config() );
+
+		return $composer;
 	}
 
 }
