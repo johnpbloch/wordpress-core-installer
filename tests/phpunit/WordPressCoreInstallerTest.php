@@ -6,6 +6,7 @@ use Composer\Composer;
 use Composer\Config;
 use Composer\IO\NullIO;
 use Composer\Package\Package;
+use Composer\Package\RootPackage;
 use johnpbloch\Composer\WordPressCoreInstaller;
 use PHPUnit\Framework\TestCase;
 
@@ -31,6 +32,24 @@ class WordPressCoreInstallerTest extends TestCase {
 		$package   = new Package( 'johnpbloch/test-package', '1.0.0.0', '1.0.0' );
 
 		$this->assertEquals( 'wordpress', $installer->getInstallPath( $package ) );
+	}
+
+	public function testSingleRootInstallDir() {
+		$composer    = $this->createComposer();
+		$rootPackage = new RootPackage( 'test/root-package', '1.0.1.0', '1.0.1' );
+		$composer->setPackage( $rootPackage );
+		$installDir = 'tmp-wp-' . rand( 0, 9 );
+		$rootPackage->setExtra( array(
+			'wordpress-install-dir' => $installDir,
+		) );
+		$installer = new WordPressCoreInstaller( new NullIO(), $composer );
+
+		$this->assertEquals(
+			$installDir,
+			$installer->getInstallPath(
+				new Package( 'not/important', '1.0.0.0', '1.0.0' )
+			)
+		);
 	}
 
 	private function resetInstallPaths() {
