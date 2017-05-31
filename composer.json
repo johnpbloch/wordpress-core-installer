@@ -32,7 +32,7 @@
 	},
 	"require-dev": {
 		"composer/composer": "^1.0",
-		"phpunit/phpunit": "^6.1"
+		"phpunit/phpunit": ">=4.8.35"
 	},
 	"conflict": {
 		"composer/installers": "<1.0.6"

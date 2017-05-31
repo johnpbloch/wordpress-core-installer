@@ -104,15 +104,15 @@ class WordPressCoreInstallerTest extends TestCase {
 		$this->assertEquals( 'wp', $installer->getInstallPath( $package ) );
 	}
 
+	/**
+	 * @expectedException \InvalidArgumentException
+	 * @expectedExceptionMessage Two packages (test/bazbat and test/foobar) cannot share the same directory!
+	 */
 	public function testTwoPackagesCannotShareDirectory() {
 		$composer  = $this->createComposer();
 		$installer = new WordPressCoreInstaller( new NullIO(), $composer );
 		$package1  = new Package( 'test/foobar', '1.1.1.1', '1.1.1.1' );
 		$package2  = new Package( 'test/bazbat', '1.1.1.1', '1.1.1.1' );
-		$this->expectException( 'InvalidArgumentException' );
-		$this->expectExceptionMessage(
-			'Two packages (test/bazbat and test/foobar) cannot share the same directory!'
-		);
 
 		$installer->getInstallPath( $package1 );
 		$installer->getInstallPath( $package2 );
