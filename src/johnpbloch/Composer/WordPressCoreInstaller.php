@@ -21,6 +21,7 @@
 
 namespace johnpbloch\Composer;
 
+use Composer\Config;
 use Composer\Installer\LibraryInstaller;
 use Composer\Package\PackageInterface;
 
@@ -33,10 +34,7 @@ class WordPressCoreInstaller extends LibraryInstaller {
 
 	private static $_installedPaths = array();
 
-	private $sensitiveDirectories = array(
-		'.',
-		'vendor',
-	);
+	private $sensitiveDirectories = array( '.' );
 
 	/**
 	 * {@inheritDoc}
@@ -60,7 +58,10 @@ class WordPressCoreInstaller extends LibraryInstaller {
 		if ( ! $installationDir ) {
 			$installationDir = 'wordpress';
 		}
-		if ( in_array( $installationDir, $this->sensitiveDirectories ) ) {
+		if (
+			in_array( $installationDir, $this->sensitiveDirectories ) ||
+			$installationDir === $this->composer->getConfig()->get( 'vendor-dir', Config::RELATIVE_PATHS )
+		) {
 			throw new \InvalidArgumentException( $this->getSensitiveDirectoryMessage( $installationDir, $prettyName ) );
 		}
 		if (
