@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/johnpbloch/wordpress-core-installer.svg?branch=master)](https://travis-ci.org/johnpbloch/wordpress-core-installer) [![codecov](https://codecov.io/gh/johnpbloch/wordpress-core-installer/branch/master/graph/badge.svg)](https://codecov.io/gh/johnpbloch/wordpress-core-installer) [![License: GPL v2](https://img.shields.io/badge/License-GPL%20v2-blue.svg)](https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html)
 
-This is a [custom Composer installer](http://getcomposer.org/doc/articles/custom-installers.md) for WordPress core. It is a proof of concept, but feel free to use it. The package is on [packagist](http://packagist.org) and the package name is `johnpbloch/wordpress-core-installer`.
+A custom Composer plugin to install WordPress core outside of `vendor`.
 
 ### Usage
 To set up a custom WordPress build package to use this as a custom installer, add the following to your package's composer file:
@@ -10,11 +10,11 @@ To set up a custom WordPress build package to use this as a custom installer, ad
 ```
 "type": "wordpress-core",
 "require": {
-	"johnpbloch/wordpress-core-installer": "~0.1"
+	"johnpbloch/wordpress-core-installer": "^1.0"
 }
 ```
 
-By default, this package will install a WordPress Core type package in the `wordpress` directory. To change this you can add the following to either your custom WordPress core type package or the root composer package:
+By default, this package will install a `wordpress-core` type package in the `wordpress` directory. To change this you can add the following to either your custom WordPress core type package or the root composer package:
 
 ```
 "extra": {
