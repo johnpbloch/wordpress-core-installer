@@ -1,6 +1,10 @@
 # WordPress Core Installer
 
-[![Build Status](https://travis-ci.org/johnpbloch/wordpress-core-installer.svg?branch=master)](https://travis-ci.org/johnpbloch/wordpress-core-installer) [![codecov](https://codecov.io/gh/johnpbloch/wordpress-core-installer/branch/master/graph/badge.svg)](https://codecov.io/gh/johnpbloch/wordpress-core-installer) [![License: GPL v2](https://img.shields.io/badge/License-GPL%20v2-blue.svg)](https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html)
+[![Build Status](https://travis-ci.org/johnpbloch/wordpress-core-installer.svg?branch=master)](https://travis-ci.org/johnpbloch/wordpress-core-installer)
+[![codecov](https://img.shields.io/codecov/c/github/johnpbloch/wordpress-core-installer/master.svg)](https://codecov.io/gh/johnpbloch/wordpress-core-installer)
+[![License: GPL v2](https://img.shields.io/badge/License-GPL%20v2-blue.svg)](https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html)
+[![Packagist](https://img.shields.io/packagist/dt/johnpbloch/wordpress-core-installer.svg)](https://packagist.org/packages/johnpbloch/wordpress-core-installer)
+![GitHub tag](https://img.shields.io/github/tag/johnpbloch/wordpress-core-installer.svg)
 
 A custom Composer plugin to install WordPress core outside of `vendor`.
 
