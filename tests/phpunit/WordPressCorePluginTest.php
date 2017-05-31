@@ -19,23 +19,14 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-namespace johnpbloch\Composer;
+namespace Tests\JohnPBloch\Composer\phpunit;
 
-use Composer\Composer;
-use Composer\IO\IOInterface;
-use Composer\Plugin\PluginInterface;
+use PHPUnit\Framework\TestCase;
 
-class WordPressCorePlugin implements PluginInterface {
+class WordPressCorePluginTest extends TestCase {
 
-	/**
-	 * Apply plugin modifications to composer
-	 *
-	 * @param Composer    $composer
-	 * @param IOInterface $io
-	 */
-	public function activate( Composer $composer, IOInterface $io ) {
-		$installer = new WordPressCoreInstaller( $io, $composer );
-		$composer->getInstallationManager()->addInstaller( $installer );
+	public function testActivate() {
+		self::markTestIncomplete();
 	}
 
 }

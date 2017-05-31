@@ -17,6 +17,11 @@
 			"johnpbloch\\Composer\\": "src/"
 		}
 	},
+	"autoload-dev"     : {
+		"psr-4": {
+			"Tests\\JohnPBloch\\Composer\\": "tests/"
+		}
+	},
 	"extra"            : {
 		"class": "johnpbloch\\Composer\\WordPressCorePlugin"
 	},
