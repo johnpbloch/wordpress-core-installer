@@ -1,42 +1,46 @@
 {
-	"name"             : "johnpbloch/wordpress-core-installer",
-	"description"      : "A custom installer to handle deploying WordPress with composer",
-	"keywords"         : ["wordpress"],
-	"type"             : "composer-plugin",
-	"license"          : "GPL-2.0+",
+	"name": "johnpbloch/wordpress-core-installer",
+	"description": "A custom installer to handle deploying WordPress with composer",
+	"keywords": [
+		"wordpress"
+	],
+	"type": "composer-plugin",
+	"license": "GPL-2.0+",
 	"minimum-stability": "dev",
-	"prefer-stable"    : true,
-	"authors"          : [
+	"prefer-stable": true,
+	"authors": [
 		{
-			"name" : "John P. Bloch",
+			"name": "John P. Bloch",
 			"email": "me@johnpbloch.com"
 		}
 	],
-	"autoload"         : {
+	"autoload": {
 		"psr-0": {
 			"johnpbloch\\Composer\\": "src/"
 		}
 	},
-	"autoload-dev"     : {
+	"autoload-dev": {
 		"psr-4": {
 			"Tests\\JohnPBloch\\Composer\\": "tests/"
 		}
 	},
-	"extra"            : {
+	"extra": {
 		"class": "johnpbloch\\Composer\\WordPressCorePlugin"
 	},
-	"require"          : {
+	"require": {
 		"composer-plugin-api": "^1.0"
 	},
-	"require-dev"      : {
+	"require-dev": {
 		"composer/composer": "^1.0",
 		"phpunit/phpunit": "^6.1"
 	},
-	"conflict"         : {
+	"conflict": {
 		"composer/installers": "<1.0.6"
 	},
-	"scripts"          : {
+	"scripts": {
 		"test:phpunit": "phpunit",
-		"test"        : ["@test:phpunit"]
+		"test": [
+			"@test:phpunit"
+		]
 	}
 }
