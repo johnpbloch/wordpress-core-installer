@@ -118,6 +118,26 @@ class WordPressCoreInstallerTest extends TestCase {
 		$installer->getInstallPath( $package2 );
 	}
 
+	/**
+	 * @dataProvider                   dataProviderSensitiveDirectories
+	 * @expectedException \InvalidArgumentException
+	 * @expectedExceptionMessageRegExp Warning! .+? is an invalid WordPress install directory (from test/package)!
+	 */
+	public function testSensitiveInstallDirectoriesNotAllowed( $directory ) {
+		$composer  = $this->createComposer();
+		$installer = new WordPressCoreInstaller( new NullIO(), $composer );
+		$package   = new Package( 'test/package', '1.1.0.0', '1.1' );
+		$package->setExtra( array( 'wordpress-install-dir' => $directory ) );
+		$installer->getInstallPath( $package );
+	}
+
+	public function dataProviderSensitiveDirectories() {
+		return array(
+			array( '.' ),
+			array( 'vendor' ),
+		);
+	}
+
 	private function resetInstallPaths() {
 		$prop = new \ReflectionProperty( '\johnpbloch\Composer\WordPressCoreInstaller', '_installedPaths' );
 		$prop->setAccessible( true );
