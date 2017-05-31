@@ -19,29 +19,7 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-namespace Tests\JohnPBloch\Composer\phpunit;
 
-use Composer\Composer;
-use Composer\Config;
-use Composer\Installer\InstallationManager;
-use Composer\IO\NullIO;
-use johnpbloch\Composer\WordPressCorePlugin;
-use PHPUnit\Framework\TestCase;
-
-class WordPressCorePluginTest extends TestCase {
-
-	public function testActivate() {
-		$composer            = new Composer();
-		$installationManager = new InstallationManager();
-		$composer->setInstallationManager( $installationManager );
-		$composer->setConfig( new Config() );
-
-		$plugin = new WordPressCorePlugin();
-		$plugin->activate( $composer, new NullIO() );
-
-		$installer = $installationManager->getInstaller( 'wordpress-core' );
-
-		$this->assertInstanceOf( '\johnpbloch\Composer\WordPressCoreInstaller', $installer );
-	}
-
-}
+putenv( 'COMPOSER_VENDOR_DIR=vendor' );
+putenv( 'COMPOSER_BIN_DIR=vendor/bin' );
+putenv( 'COMPOSER_BIN_COMPAT=full' );
