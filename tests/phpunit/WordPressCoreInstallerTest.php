@@ -11,6 +11,14 @@ use PHPUnit\Framework\TestCase;
 
 class WordPressCoreInstallerTest extends TestCase {
 
+	protected function setUp() {
+		$this->resetInstallPaths();
+	}
+
+	protected function tearDown() {
+		$this->resetInstallPaths();
+	}
+
 	public function testSupports() {
 		$composer = new Composer();
 		$composer->setConfig( new Config() );
@@ -27,6 +35,12 @@ class WordPressCoreInstallerTest extends TestCase {
 		$package   = new Package( 'johnpbloch/test-package', '1.0.0.0', '1.0.0' );
 
 		$this->assertEquals( 'wordpress', $installer->getInstallPath( $package ) );
+	}
+
+	private function resetInstallPaths() {
+		$prop = new \ReflectionProperty( '\johnpbloch\Composer\WordPressCoreInstaller', '_installedPaths' );
+		$prop->setAccessible( true );
+		$prop->setValue( array() );
 	}
 
 }
