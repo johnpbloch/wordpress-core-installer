@@ -5,6 +5,7 @@
 	"type"             : "composer-plugin",
 	"license"          : "GPL-2.0+",
 	"minimum-stability": "dev",
+	"prefer-stable"    : true,
 	"authors"          : [
 		{
 			"name" : "John P. Bloch",
@@ -23,7 +24,7 @@
 		"composer-plugin-api": "^1.0"
 	},
 	"require-dev"      : {
-		"composer/composer": "1.0.*@dev"
+		"composer/composer": "^1.0"
 	},
 	"conflict"         : {
 		"composer/installers": "<1.0.6"
