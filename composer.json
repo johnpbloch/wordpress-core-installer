@@ -34,5 +34,9 @@
 	},
 	"conflict"         : {
 		"composer/installers": "<1.0.6"
+	},
+	"scripts"          : {
+		"test:phpunit": "phpunit",
+		"test"        : ["@test:phpunit"]
 	}
 }
