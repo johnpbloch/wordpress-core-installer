@@ -29,8 +29,14 @@ class WordPressCoreInstaller extends LibraryInstaller {
 	const TYPE = 'wordpress-core';
 
 	const MESSAGE_CONFLICT = 'Two packages (%s and %s) cannot share the same directory!';
+	const MESSAGE_SENSITIVE = 'Warning! %s is an invalid WordPress install directory (from %s)!';
 
 	private static $_installedPaths = array();
+
+	private $sensitiveDirectories = array(
+		'.',
+		'vendor',
+	);
 
 	/**
 	 * {@inheritDoc}
@@ -43,7 +49,7 @@ class WordPressCoreInstaller extends LibraryInstaller {
 			if ( ! empty( $topExtra['wordpress-install-dir'] ) ) {
 				$installationDir = $topExtra['wordpress-install-dir'];
 				if ( is_array( $installationDir ) ) {
-					$installationDir = empty( $installationDir[$prettyName] ) ? false : $installationDir[$prettyName];
+					$installationDir = empty( $installationDir[ $prettyName ] ) ? false : $installationDir[ $prettyName ];
 				}
 			}
 		}
@@ -54,14 +60,18 @@ class WordPressCoreInstaller extends LibraryInstaller {
 		if ( ! $installationDir ) {
 			$installationDir = 'wordpress';
 		}
+		if ( in_array( $installationDir, $this->sensitiveDirectories ) ) {
+			throw new \InvalidArgumentException( $this->getSensitiveDirectoryMessage( $installationDir, $prettyName ) );
+		}
 		if (
-			! empty( self::$_installedPaths[$installationDir] ) &&
-			$prettyName !== self::$_installedPaths[$installationDir]
+			! empty( self::$_installedPaths[ $installationDir ] ) &&
+			$prettyName !== self::$_installedPaths[ $installationDir ]
 		) {
 			$conflict_message = $this->getConflictMessage( $prettyName, self::$_installedPaths[ $installationDir ] );
 			throw new \InvalidArgumentException( $conflict_message );
 		}
-		self::$_installedPaths[$installationDir] = $prettyName;
+		self::$_installedPaths[ $installationDir ] = $prettyName;
+
 		return $installationDir;
 	}
 
@@ -82,6 +92,18 @@ class WordPressCoreInstaller extends LibraryInstaller {
 	 */
 	private function getConflictMessage( $attempted, $alreadyExists ) {
 		return sprintf( self::MESSAGE_CONFLICT, $attempted, $alreadyExists );
+	}
+
+	/**
+	 * Get the exception message for attempted sensitive directories
+	 *
+	 * @param string $attempted
+	 * @param string $packageName
+	 *
+	 * @return string
+	 */
+	private function getSensitiveDirectoryMessage( $attempted, $packageName ) {
+		return sprintf( self::MESSAGE_SENSITIVE, $attempted, $packageName );
 	}
 
 }

@@ -121,7 +121,7 @@ class WordPressCoreInstallerTest extends TestCase {
 	/**
 	 * @dataProvider                   dataProviderSensitiveDirectories
 	 * @expectedException \InvalidArgumentException
-	 * @expectedExceptionMessageRegExp Warning! .+? is an invalid WordPress install directory (from test/package)!
+	 * @expectedExceptionMessageRegExp /Warning! .+? is an invalid WordPress install directory \(from test\/package\)!/
 	 */
 	public function testSensitiveInstallDirectoriesNotAllowed( $directory ) {
 		$composer  = $this->createComposer();
