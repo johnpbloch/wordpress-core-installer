@@ -15,7 +15,7 @@ For more information on this site setup and using Composer to manage a whole Wor
 ### Usage
 To set up a custom WordPress build package to use this as a custom installer, add the following to your package's composer file:
 
-```
+```json
 "type": "wordpress-core",
 "require": {
 	"johnpbloch/wordpress-core-installer": "^1.0"
@@ -24,7 +24,7 @@ To set up a custom WordPress build package to use this as a custom installer, ad
 
 By default, this package will install a `wordpress-core` type package in the `wordpress` directory. To change this you can add the following to either your custom WordPress core type package or the root composer package:
 
-```
+```json
 "extra": {
 	"wordpress-install-dir": "custom/path"
 }
@@ -32,7 +32,7 @@ By default, this package will install a `wordpress-core` type package in the `wo
 
 The root composer package can also declare custom paths as an object keyed by package name:
 
-```
+```json
 "extra": {
 	"wordpress-install-dir": {
 		"wordpress/wordpress": "wordpress",
