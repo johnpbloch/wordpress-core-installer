@@ -128,7 +128,7 @@ class WordPressCoreInstallerTest extends TestCase {
 	}
 
 	/**
-	 * @dataProvider                   dataProviderSensitiveDirectories
+	 * @dataProvider dataProviderSensitiveDirectories
 	 */
 	public function testSensitiveInstallDirectoriesNotAllowed( $directory ) {
 		$this->expectException( '\InvalidArgumentException' );
