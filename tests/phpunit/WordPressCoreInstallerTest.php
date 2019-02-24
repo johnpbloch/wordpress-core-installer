@@ -148,7 +148,7 @@ class WordPressCoreInstallerTest extends TestCase {
 	}
 
 	/**
-	 * @beforeClass
+	 * @before
 	 * @afterClass
 	 */
 	public static function resetInstallPaths() {
