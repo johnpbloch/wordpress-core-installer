@@ -31,14 +31,6 @@ use PHPUnit\Framework\TestCase;
 
 class WordPressCoreInstallerTest extends TestCase {
 
-	protected function setUp() {
-		$this->resetInstallPaths();
-	}
-
-	protected function tearDown() {
-		$this->resetInstallPaths();
-	}
-
 	public function testSupports() {
 		$installer = new WordPressCoreInstaller( new NullIO(), $this->createComposer() );
 
@@ -123,11 +115,11 @@ class WordPressCoreInstallerTest extends TestCase {
 		$this->assertEquals( 'wp', $installer->getInstallPath( $package ) );
 	}
 
-	/**
-	 * @expectedException \InvalidArgumentException
-	 * @expectedExceptionMessage Two packages (test/bazbat and test/foobar) cannot share the same directory!
-	 */
 	public function testTwoPackagesCannotShareDirectory() {
+		$this->jpbExpectException(
+			'\InvalidArgumentException',
+			'Two packages (test/bazbat and test/foobar) cannot share the same directory!'
+		);
 		$composer  = $this->createComposer();
 		$installer = new WordPressCoreInstaller( new NullIO(), $composer );
 		$package1  = new Package( 'test/foobar', '1.1.1.1', '1.1.1.1' );
@@ -138,11 +130,14 @@ class WordPressCoreInstallerTest extends TestCase {
 	}
 
 	/**
-	 * @dataProvider                   dataProviderSensitiveDirectories
-	 * @expectedException \InvalidArgumentException
-	 * @expectedExceptionMessageRegExp /Warning! .+? is an invalid WordPress install directory \(from test\/package\)!/
+	 * @dataProvider dataProviderSensitiveDirectories
 	 */
 	public function testSensitiveInstallDirectoriesNotAllowed( $directory ) {
+		$this->jpbExpectException(
+			'\InvalidArgumentException',
+			'/Warning! .+? is an invalid WordPress install directory \(from test\/package\)!/',
+			true
+		);
 		$composer  = $this->createComposer();
 		$installer = new WordPressCoreInstaller( new NullIO(), $composer );
 		$package   = new Package( 'test/package', '1.1.0.0', '1.1' );
@@ -157,7 +152,11 @@ class WordPressCoreInstallerTest extends TestCase {
 		);
 	}
 
-	private function resetInstallPaths() {
+	/**
+	 * @before
+	 * @afterClass
+	 */
+	public static function resetInstallPaths() {
 		$prop = new \ReflectionProperty( '\johnpbloch\Composer\WordPressCoreInstaller', '_installedPaths' );
 		$prop->setAccessible( true );
 		$prop->setValue( array() );
@@ -171,6 +170,19 @@ class WordPressCoreInstallerTest extends TestCase {
 		$composer->setConfig( new Config() );
 
 		return $composer;
+	}
+
+	private function jpbExpectException( $class, $message = '', $isRegExp = false ) {
+		if ( method_exists( $this, 'expectException' ) ) {
+			$this->expectException($class);
+			if ( $message ) {
+				$isRegExp || $this->expectExceptionMessage( $message );
+				$isRegExp && $this->expectExceptionMessageRegExp( $message );
+			}
+		} else {
+			$isRegExp || $this->setExpectedException( $class, $message );
+			$isRegExp && $this->setExpectedExceptionRegExp( $class, $message );
+		}
 	}
 
 }

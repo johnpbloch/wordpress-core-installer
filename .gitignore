@@ -2,3 +2,5 @@ composer.lock
 vendor
 phpunit.xml
 clover.xml
+.phpunit.result.cache
+.idea/
