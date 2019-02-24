@@ -31,14 +31,6 @@ use PHPUnit\Framework\TestCase;
 
 class WordPressCoreInstallerTest extends TestCase {
 
-	protected function setUp() {
-		$this->resetInstallPaths();
-	}
-
-	protected function tearDown() {
-		$this->resetInstallPaths();
-	}
-
 	public function testSupports() {
 		$installer = new WordPressCoreInstaller( new NullIO(), $this->createComposer() );
 
@@ -157,7 +149,11 @@ class WordPressCoreInstallerTest extends TestCase {
 		);
 	}
 
-	private function resetInstallPaths() {
+	/**
+	 * @beforeClass
+	 * @afterClass
+	 */
+	public static function resetInstallPaths() {
 		$prop = new \ReflectionProperty( '\johnpbloch\Composer\WordPressCoreInstaller', '_installedPaths' );
 		$prop->setAccessible( true );
 		$prop->setValue( array() );
