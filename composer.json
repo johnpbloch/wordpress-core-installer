@@ -28,10 +28,10 @@
 		"class": "johnpbloch\\Composer\\WordPressCorePlugin"
 	},
 	"require": {
-		"composer-plugin-api": "^1.0"
+		"composer-plugin-api": "^1.0 || ^2.0"
 	},
 	"require-dev": {
-		"composer/composer": "^1.0",
+		"composer/composer": "^1.0 || ^2.0",
 		"phpunit/phpunit": ">=4.8.35"
 	},
 	"conflict": {
