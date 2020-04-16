@@ -38,11 +38,16 @@ class WordPressCorePlugin implements PluginInterface {
 		$composer->getInstallationManager()->addInstaller( $installer );
 	}
 
-    public function deactivate(Composer $composer, IOInterface $io)
-    {
-    }
+	/**
+	 * {@inheritDoc}
+	 */
+	public function deactivate( Composer $composer, IOInterface $io ) {
+	}
 
-    public function uninstall(Composer $composer, IOInterface $io)
-    {
-    }
+	/**
+	 * {@inheritDoc}
+	 */
+	public function uninstall( Composer $composer, IOInterface $io ) {
+	}
+
 }
