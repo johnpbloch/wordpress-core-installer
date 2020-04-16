@@ -173,15 +173,17 @@ class WordPressCoreInstallerTest extends TestCase {
 	}
 
 	private function jpbExpectException( $class, $message = '', $isRegExp = false ) {
-		if ( method_exists( $this, 'expectException' ) ) {
-			$this->expectException($class);
-			if ( $message ) {
-				$isRegExp || $this->expectExceptionMessage( $message );
-				$isRegExp && $this->expectExceptionMessageRegExp( $message );
+		$this->expectException($class);
+		if ( $message ) {
+			if ( $isRegExp ) {
+				if ( method_exists( $this, 'expectExceptionMessageRegExp' ) ) {
+					$this->expectExceptionMessageRegExp( $message );
+				} else {
+					$this->expectExceptionMessageMatches( $message );
+				}
+			} else {
+				$this->expectExceptionMessage( $message );
 			}
-		} else {
-			$isRegExp || $this->setExpectedException( $class, $message );
-			$isRegExp && $this->setExpectedExceptionRegExp( $class, $message );
 		}
 	}
 

@@ -24,24 +24,54 @@ namespace Tests\JohnPBloch\Composer\phpunit;
 use Composer\Composer;
 use Composer\Config;
 use Composer\Installer\InstallationManager;
+use Composer\IO\IOInterface;
 use Composer\IO\NullIO;
+use Composer\Plugin\PluginInterface;
+use Composer\Test\Mock\HttpDownloaderMock;
+use Composer\Util\HttpDownloader;
+use Composer\Util\Loop;
 use johnpbloch\Composer\WordPressCorePlugin;
 use PHPUnit\Framework\TestCase;
 
 class WordPressCorePluginTest extends TestCase {
 
 	public function testActivate() {
-		$composer            = new Composer();
-		$installationManager = new InstallationManager();
+		$composer = new Composer();
+		$composer->setConfig( new Config() );
+		$nullIO              = new NullIO();
+		$installationManager = $this->getInstallationManager( $composer, $nullIO );
 		$composer->setInstallationManager( $installationManager );
 		$composer->setConfig( new Config() );
 
 		$plugin = new WordPressCorePlugin();
-		$plugin->activate( $composer, new NullIO() );
+		$plugin->activate( $composer, $nullIO );
 
 		$installer = $installationManager->getInstaller( 'wordpress-core' );
 
 		$this->assertInstanceOf( '\johnpbloch\Composer\WordPressCoreInstaller', $installer );
+	}
+
+	/**
+	 * @param Composer $composer
+	 * @param IOInterface $io
+	 *
+	 * @return InstallationManager
+	 */
+	private function getInstallationManager( $composer, $io ) {
+		$installationManager = null;
+		switch ( explode( '.', PluginInterface::PLUGIN_API_VERSION )[0] ) {
+			case '1':
+				$installationManager = new InstallationManager();
+				break;
+			case '2':
+			default:
+				$http                = new HttpDownloader( $io, $composer->getConfig() );
+				$loop                = new Loop( $http );
+				$installationManager = new InstallationManager( $loop, $io );
+				break;
+		}
+
+		return $installationManager;
 	}
 
 }
