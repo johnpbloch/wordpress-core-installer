@@ -25,7 +25,8 @@
 		}
 	},
 	"extra": {
-		"class": "johnpbloch\\Composer\\WordPressCorePlugin"
+		"class": "johnpbloch\\Composer\\WordPressCorePlugin",
+		"plugin-modifies-downloads": true
 	},
 	"require": {
 		"composer-plugin-api": "^1.0 || ^2.0",
